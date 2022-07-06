@@ -15,7 +15,11 @@ fn main() -> Result<()> {
         .collect();
 
     let mut url = url.clone();
-    url.query_pairs_mut().clear().extend_pairs(no_utm);
+    if no_utm.is_empty() {
+        url.set_query(None);
+    } else {
+        url.query_pairs_mut().clear().extend_pairs(no_utm);
+    }
 
     print!("{}", &url);
 
